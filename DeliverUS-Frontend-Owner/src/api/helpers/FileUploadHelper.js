@@ -44,7 +44,7 @@ const getFilesFromData = (data) => {
   })
 }
 
-function constructFormData(files, dataWithoutFiles) {
+function constructFormData (files, dataWithoutFiles) {
   const formData = new FormData()
   files.forEach(file => {
     const normalizedFile = normalizeFile(file)
@@ -58,7 +58,7 @@ function constructFormData(files, dataWithoutFiles) {
   return formData
 }
 
-function getMultiPartHeader() {
+function getMultiPartHeader () {
   return {
     headers: {
       'Content-Type': 'multipart/form-data; charset=utf-8; boundary="separation between parts";'
@@ -66,7 +66,7 @@ function getMultiPartHeader() {
   }
 }
 
-function prepareData(preparedData) {
+function prepareData (preparedData) {
   let config, files
   if (preparedData) {
     files = getFilesFromData(preparedData)

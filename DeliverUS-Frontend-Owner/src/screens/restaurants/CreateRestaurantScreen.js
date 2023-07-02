@@ -13,14 +13,16 @@ import restaurantBackground from '../../../assets/restaurantBackground.jpeg'
 import { showMessage } from 'react-native-flash-message'
 import { ErrorMessage, Formik } from 'formik'
 import TextError from '../../components/TextError'
+import { Switch } from 'react-native-web'
 
 export default function CreateRestaurantScreen ({ navigation }) {
   const [open, setOpen] = useState(false)
   const [restaurantCategories, setRestaurantCategories] = useState([])
   const [backendErrors, setBackendErrors] = useState()
 
-  const initialRestaurantValues = { name: null, description: null, address: null, postalCode: null, url: null, shippingCosts: null, email: null, phone: null, restaurantCategoryId: null }
+  const initialRestaurantValues = { name: null, description: null, address: null, postalCode: null, url: null, shippingCosts: null, email: null, phone: null, restaurantCategoryId: null, promoted: false }
   const validationSchema = yup.object().shape({
+
     name: yup
       .string()
       .max(255, 'Name too long')
@@ -203,6 +205,19 @@ export default function CreateRestaurantScreen ({ navigation }) {
                 <TextRegular>Hero image: </TextRegular>
                 <Image style={styles.image} source={values.heroImage ? { uri: values.heroImage.assets[0].uri } : restaurantBackground} />
               </Pressable>
+              {/* SOLUTION */}
+
+              {/* SOLUTION */}
+              <TextRegular>Is it promoted?</TextRegular>
+              <Switch
+                trackColor={{ false: GlobalStyles.brandSecondary, true: GlobalStyles.brandPrimary }}
+                thumbColor={values.promoted ? GlobalStyles.brandSecondary : '#f4f3f4'}
+                value={values.promoted}
+                style={styles.switch}
+                onValueChange={value =>
+                  setFieldValue('promoted', value)
+                }
+              />
 
               {backendErrors &&
                 backendErrors.map((error, index) => <TextError key={index}>{error.param}-{error.msg}</TextError>)
@@ -259,6 +274,10 @@ const styles = StyleSheet.create({
     height: 100,
     borderWidth: 1,
     alignSelf: 'center',
+    marginTop: 5
+  },
+  // SOLUTION
+  Switch: {
     marginTop: 5
   }
 })

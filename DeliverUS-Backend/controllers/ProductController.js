@@ -26,10 +26,10 @@ exports.show = async function (req, res) {
   try {
     const product = await Product.findByPk(req.params.productId, {
       include: [
-      {
-        model: ProductCategory,
-        as: 'productCategory'
-      }]
+        {
+          model: ProductCategory,
+          as: 'productCategory'
+        }]
     }
     )
     res.json(product)
@@ -47,7 +47,7 @@ exports.create = async function (req, res) {
     newProduct = await newProduct.save()
     res.json(newProduct)
   } catch (err) {
-      res.status(500).send(err)
+    res.status(500).send(err)
   }
 }
 
